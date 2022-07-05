@@ -2,10 +2,11 @@ package com.example.test01.service;
 
 import com.example.test01.dto.ArticleForm;
 import com.example.test01.entity.Article;
+import com.example.test01.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.example.test01.repository.ArticleRepository;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@WebAppConfiguration
 @SpringBootTest // 해당 클래스는 스프링부트와 연동되어 테스팅
 class ArticleServiceTest {
 
@@ -160,6 +162,8 @@ class ArticleServiceTest {
         Article expected = new Article(id, title, content);
 
         Article article = articleService.delete(id);
+        List<Article> articles = articleService.index();
+        System.out.println(articles);
 
         assertEquals(expected.toString(), article.toString());
     }
